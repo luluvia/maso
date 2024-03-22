@@ -1,4 +1,4 @@
-name: Check & Build
+name: Check and Build
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
         run: cargo clippy --all-targets --all-features -- -D warnings
   build:
     runs-on: ubuntu-latest
-    if: !contains(github.event.head_commit.message, 'docs:')
+    if: ${{ !contains(github.event.head_commit.message, 'docs:') }}
     steps:
       - uses: actions/checkout@v3
       - name: Build
