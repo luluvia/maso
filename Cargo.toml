@@ -1,0 +1,15 @@
+[package]
+name = "maso"
+version = "0.1.0-next"
+authors = ["Luis Luvia <lluvia@lusade.net>"]
+edition = "2021"
+description = "A message and status output program"
+repository = "https://github.com/luluvia/maso"
+license = "MIT"
+keywords = ["message", "status", "output"]
+categories = ["command-line-utilities"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+superconsole = "0.2.0"
