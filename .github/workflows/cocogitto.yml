@@ -1,0 +1,37 @@
+name: Cocogitto
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  cog_check:
+    runs-on: ubuntu-latest
+    name: check conventional commit compliance
+    steps:
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - if: github.event_name == 'push'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Conventional commit check
+        uses: cocogitto/cocogitto-action@v3
+  release:
+    runs-on: ubuntu-latest
+    name: release
+    needs: [ cog_check, Rust ]
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Semver release
+        uses: cocogitto/cocogitto-action@v3
+        with:
+          release: true
